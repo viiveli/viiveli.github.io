@@ -31,8 +31,8 @@
           materials development.
         </p>
         <p>
-          Familiar with Python, JavaScript/TypeScript, HTML/CSS, Git, Azure DevOps, MS Power Platform and MS Azure at junior
-          level
+          Familiar with Python, JavaScript/TypeScript, HTML/CSS, Git, Azure DevOps, MS Power Platform and MS Azure at
+          junior level
         </p>
         <p>
           I enjoy simple, minimalistic things with a function. Like bicycles. Or beer.
@@ -43,60 +43,93 @@
 
       <div id="projectcontainer" class="w3-container">
         <h2>projects, gizmos and doodads</h2>
-
-        <div class="w3-container">
-          <h3>advent of code 2022</h3>
-          <p>
-            <a href="https://github.com/viiveli/aoc2022">https://github.com/viiveli/aoc2022</a>
-          </p>
-          <p>
-            My attempt to solve <a href="https://adventofcode.com/">Advent of Code 2022</a> puzzles with TypeScript.
-          </p>
-          <hr>
-        </div>
-
-        <div class="w3-container">
-          <h3>geotagger</h3>
-          <p>
-            <a href="https://github.com/viiveli/geotagger">https://github.com/viiveli/geotagger</a>
-          </p>
-          <p>
-            A simple "mobile first" web app for personal use to collect location data about any observations, in my case
-            mostly birdwatching.
-          </p>
-          <hr>
-        </div>
-
-        <div class="w3-container">
-          <h3>maze thingy</h3>
-          <p>
-            <a href="https://github.com/viiveli/mazethingy">https://github.com/viiveli/mazethingy</a>
-          </p>
-          <p>
-            A brute force maze solving algorithm I did as a coding challenge during job hunting. Not that pretty but
-            works.
-          </p>
-          <hr>
-        </div>
-
-        <div class="w3-container">
-          <h3>solar tracker</h3>
-          <p>
-            <a href="https://github.com/viiveli/solartracker">https://github.com/viiveli/solartracker</a>
-          </p>
-          <p>
-            A bit useless and vaguely engineered autonomous photovoltaic energy harvester running on ESP32 devkit board
-            and micropython.
-          </p>
-          <hr>
-        </div>
       </div>
       <div class="w3-container w3-right-align w3-tiny w3-opacity">
-        <a href="https://www.w3schools.com/w3css/default.asp">Powered by W3.CSS</a>
+        <a href="https://www.w3schools.com/w3css">Powered by W3.CSS</a>
       </div>
     </div>
   </div>
 
 </body>
+<script>
+  let repos;
+
+  let info = [
+    {
+      name: 'geotagger',
+      summary: 'A simple "mobile first" web app for personal use to collect location data about any observations, in my case mostly birdwatching.'
+    },
+    {
+      name: 'aoc2022',
+      header: 'advent of code 2022',
+      summary: 'My attempt to solve <a href="https://adventofcode.com/">Advent of Code 2022</a> puzzles with TypeScript.'
+    },
+    {
+      name: 'viiveli.github.io',
+      summary: 'This page. A portfolio of some kind I guess'
+    },
+    {
+      name: 'solartracker-public',
+      header: 'solar tracker',
+      summary: 'A bit useless and vaguely engineered autonomous photovoltaic energy harvester running on ESP32 devkit board and micropython.'
+    },
+    {
+      name: 'NIRScanner',
+      header: 'NIR scanner',
+      summary: 'A proof of concept project originated from a course I attended during my engineering studies in the spring of 2020. The topic was "Machine vision and sensor technology" and the goal was to explore techniques which could be used to sort textile waste.'
+    },
+    {
+      name: 'mazethingy',
+      header: 'maze thingy',
+      summary: 'A brute force maze solving algorithm I did as a coding challenge during job hunting. Not that pretty but works.'
+    }
+  ]
+
+  fetch(
+    'https://api.github.com/users/viiveli/repos'
+  ).then(
+    res => res.json()
+  ).then(
+    json => {
+      repos = json;
+      repos.sort((a, b) => b.pushed_at.localeCompare(a.pushed_at));
+
+      repos.forEach(repo => {
+        let additionalInfo = info.find(i => i.name == repo.name);
+
+        let repoCard = document.createElement('div');
+        repoCard.setAttribute('id', repo.name);
+        repoCard.classList.add('w3-container');
+
+        let repoHeader = document.createElement('h3');
+        repoHeader.innerText = additionalInfo?.header ? additionalInfo.header : repo.name;
+
+        let repoLinkPanel = document.createElement('p');
+        let repoLink = document.createElement('a');
+        repoLink.setAttribute('href', repo.html_url);
+        repoLink.innerText = repo.html_url;
+        repoLinkPanel.append(repoLink);
+
+        let repoLatestPush = document.createElement('p');
+        repoLatestPush.classList.add('w3-tiny')
+        repoLatestPush.innerText = `Latest push: ${new Date(repo.pushed_at).toLocaleString()}`
+
+        let repoSummary = document.createElement('p');
+        repoSummary.innerHTML = additionalInfo?.summary ? additionalInfo.summary : '';
+
+        let divider = document.createElement('hr');
+
+        repoCard.append(
+          repoHeader,
+          repoLinkPanel,
+          repoLatestPush,
+          repoSummary,
+          divider
+        )
+
+        document.getElementById('projectcontainer').append(repoCard);
+      });
+  });
+</script>
 
 </html>
