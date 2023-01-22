@@ -52,8 +52,6 @@
 
 </body>
 <script>
-  let repos;
-
   let info = [
     {
       name: 'geotagger',
@@ -93,8 +91,7 @@
       return res.json()
     }
   ).then(
-    json => {
-      repos = json;
+    repos => {
       repos.sort((a, b) => b.pushed_at.localeCompare(a.pushed_at));
 
       repos.forEach(repo => {
