@@ -88,7 +88,10 @@
   fetch(
     'https://api.github.com/users/viiveli/repos'
   ).then(
-    res => res.json()
+    res => {
+      if (!res.ok) throw res;
+      return res.json()
+    }
   ).then(
     json => {
       repos = json;
@@ -129,7 +132,13 @@
 
         document.getElementById('projectcontainer').append(repoCard);
       });
-  });
+    }
+  ).catch(
+    error => {
+      console.log(error);
+      document.getElementById('projectcontainer').innerHTML += '<i>Whoops. Could not fetch repo info from GitHub...</i>';
+    }
+  );
 </script>
 
 </html>
