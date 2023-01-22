@@ -94,7 +94,7 @@
     repos => {
       repos.sort((a, b) => b.pushed_at.localeCompare(a.pushed_at));
 
-      repos.forEach(repo => {
+      repos.slice(0, 5).forEach(repo => {
         let additionalInfo = info.find(i => i.name == repo.name);
 
         let repoCard = document.createElement('div');
@@ -110,9 +110,9 @@
         repoLink.innerText = repo.html_url;
         repoLinkPanel.append(repoLink);
 
-        let repoLatestPush = document.createElement('p');
-        repoLatestPush.classList.add('w3-tiny')
-        repoLatestPush.innerText = `Latest push: ${new Date(repo.pushed_at).toLocaleString()}`
+        let repoLatestActivity = document.createElement('p');
+        repoLatestActivity.classList.add('w3-tiny')
+        repoLatestActivity.innerText = `Latest activity on ${new Date(repo.pushed_at).toLocaleString()}`
 
         let repoSummary = document.createElement('p');
         repoSummary.innerHTML = additionalInfo?.summary ? additionalInfo.summary : '';
@@ -122,7 +122,7 @@
         repoCard.append(
           repoHeader,
           repoLinkPanel,
-          repoLatestPush,
+          repoLatestActivity,
           repoSummary,
           divider
         )
