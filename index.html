@@ -20,6 +20,8 @@
       <p>
         <a href="https://github.com/viiveli/"><i class="fa fa-github-square w3-xlarge"></i></a>
         <a href="https://www.linkedin.com/in/veliviisanen/"><i class="fa fa-linkedin-square w3-xlarge"></i></a>
+        &nbsp;
+        <a onclick="mode();"><i class="fa fa-lightbulb-o w3-xlarge"></i></a>
       </p>
     </div>
     <div id="rightpanel" class="w3-panel w3-twothird">
@@ -52,6 +54,16 @@
 
 </body>
 <script>
+  const mode = () => {
+    if (document.querySelector('body.w3-text-dark-gray')) {
+      document.querySelector('body').classList.replace('w3-text-dark-gray', 'w3-text-light-gray');
+      document.querySelector('body').classList.add('w3-black');
+    } else {
+      document.querySelector('body').classList.replace('w3-text-light-gray', 'w3-text-dark-gray');
+      document.querySelector('body').classList.remove('w3-black');
+    }
+  }
+
   let info = [
     {
       name: 'geotagger',
