@@ -97,27 +97,27 @@
     repos.sort((a, b) => b.pushed_at.localeCompare(a.pushed_at));
 
     repos.slice(0, 5).forEach(repo => {
-      let repoCard = document.createElement('div');
+      const repoCard = document.createElement('div');
       repoCard.setAttribute('id', repo.id);
       repoCard.classList.add('container', 'small');
 
-      let repoHeader = document.createElement('h3');
+      const repoHeader = document.createElement('h3');
       repoHeader.innerText = repo.name;
 
-      let repoLinkPanel = document.createElement('p');
-      let repoLink = document.createElement('a');
+      const repoLinkPanel = document.createElement('p');
+      const repoLink = document.createElement('a');
       repoLink.setAttribute('href', repo.html_url);
       repoLink.innerText = repo.html_url;
       repoLinkPanel.append(repoLink);
 
-      let repoLatestActivity = document.createElement('p');
+      const repoLatestActivity = document.createElement('p');
       repoLatestActivity.classList.add('tiny')
       repoLatestActivity.innerText = `Latest activity on ${new Date(repo.pushed_at).toLocaleString()}`
 
-      let repoDescription = document.createElement('p');
+      const repoDescription = document.createElement('p');
       repoDescription.innerHTML = repo.description;
 
-      let divider = document.createElement('hr');
+      const divider = document.createElement('hr');
 
       repoCard.append(
         repoHeader,
