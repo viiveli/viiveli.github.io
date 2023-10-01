@@ -8,9 +8,9 @@
   <title>viiveli @ GitHub</title>
   <style>
     html {
-      font-family: "Verdana", sans-serif;
-      background-color: white;
-      color: #3a3a3a;
+      font-family: sans-serif;
+      font-weight: lighter;
+      color-scheme: dark;
     }
 
     a {
@@ -41,7 +41,11 @@
       text-align: right;
     }
 
-    @media screen and (orientation: landscape) {
+    #recentStuff {
+      font-style: italic;
+    }
+
+    @media screen and (orientation: landscape) and (min-width: 800px) {
       body {
         width: calc(3/5*100vw);
         margin: 0 auto;
@@ -72,8 +76,8 @@
     <p>
       Somewhat familiar with Python, JavaScript, HTML/CSS, Git, Azure DevOps, MS Power Platform and MS Azure cloud services.
     </p>
-    <p>
-      Things I've recently done some stuff with: Express, FastAPI, Flask, Node.js, Numpy, Pandas, Pillow, PostgreSQL, Pydantic, React, scikit-image, scikit-learn, SciPy, SQLite, three.js
+    <p">
+      Random set of things I've recently done some stuff with: <span id="recentStuff"></span>
     </p>
     <p>
       I enjoy simple, minimalistic things with a function. Like bicycles. Or beer.
@@ -81,7 +85,7 @@
 
     <hr>
 
-    <div id="projectcontainer">
+    <div id="projects">
       <h2>some projects, gizmos and doodads</h2>
     </div>
   </div>
@@ -127,12 +131,42 @@
         divider
       )
 
-      document.getElementById('projectcontainer').append(repoCard);
+      document.getElementById('projects').append(repoCard);
     });
   }).catch(error => {
     console.log(error);
-    document.getElementById('projectcontainer').innerHTML += '<i>Whoops. Could not fetch repo info from GitHub...</i>';
+    document.getElementById('projects').innerHTML += '<i>Whoops. Could not fetch repo info from GitHub...</i>';
   });
+
+  let recentStuff = [
+    { name: 'Cosmos DB', url: 'https://azure.microsoft.com/en-us/products/cosmos-db/'},
+    { name: 'Express', url: 'https://expressjs.com/' },
+    { name: 'FastAPI', url: 'https://fastapi.tiangolo.com/' },
+    { name: 'Flask', url: 'https://flask.palletsprojects.com/' },
+    { name: 'Node.js', url: 'https://nodejs.org/' },
+    { name: 'Numpy', url: 'https://numpy.org/' },
+    { name: 'OpenCV', url: 'https://opencv.org/'},
+    { name: 'Pandas', url: 'https://pandas.pydata.org/' },
+    { name: 'Pillow', url: 'https://pillow.readthedocs.io/' },
+    { name: 'PostgreSQL', url: 'https://www.postgresql.org/' },
+    { name: 'Pydantic', url: 'https://pydantic.dev/' },
+    { name: 'React', url: 'https://reactjs.org/' },
+    { name: 'scikit-image', url: 'https://scikit-image.org/' },
+    { name: 'scikit-learn', url: 'https://scikit-learn.org/' },
+    { name: 'SciPy', url: 'https://www.scipy.org/' },
+    { name: 'SQLite', url: 'https://www.sqlite.org/' },
+    { name: 'three.js', url: 'https://threejs.org/' },
+  ]
+
+  for (let i = recentStuff.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // at random index
+    [recentStuff[i], recentStuff[j]] = [recentStuff[j], recentStuff[i]];
+  }
+
+  document.getElementById('recentStuff').innerHTML += recentStuff
+    .map(i => `<a href="${i.url}" target="_blank">${i.name}</a>`)
+    .slice(0, 10)
+    .join(', ');
 </script>
 
 </html>
