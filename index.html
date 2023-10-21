@@ -7,15 +7,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>viiveli @ GitHub</title>
   <style>
-    html {
-      font-family: sans-serif;
-      font-weight: lighter;
-      color-scheme: dark;
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
     }
 
+    @media screen and (orientation: landscape) {
+      body {
+        max-width: 1280px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+      }
+    }
+
+    @media screen and (orientation: portrait) {
+      body {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+    }
+    
+    html {
+      animation-name: fadeIn;
+      animation-iteration-count: 1;
+      animation-timing-function: ease-in;
+      animation-duration: 1s;
+      font-family: sans-serif;
+      font-weight: lighter;
+      opacity: 1;
+    }
+    
     a {
       color: unset;
       text-decoration: underline;
+    }
+
+    div {
+      margin: 0 auto;
+      padding: 0 1rem;
     }
 
     hr {
@@ -24,9 +58,9 @@
       background: darkgray;
     }
 
-    .container {
-      margin: 0 auto;
-      padding: 0 1rem;
+    img {
+      border-radius: .25rem;
+      box-shadow: 0 0 1rem rgba(0, 0, 0, .25);
     }
 
     .small {
@@ -43,21 +77,13 @@
 
     #recentStuff {
       font-style: italic;
-    }
-
-    @media screen and (orientation: landscape) and (min-width: 800px) {
-      body {
-        width: calc(3/5*100vw);
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-      }
+      list-style-type: "- ";
     }
   </style>
 </head>
 
 <body>
-  <div class="container right-align">
+  <div class="right-align">
     <h1>viiveli</h1>
     <img src="img/profile.jpg" style="width: 100%;">
     <p class="tiny">
@@ -66,7 +92,7 @@
     </p>
   </div>
 
-  <div class="container">
+  <div>
     <h1>about</h1>
     <p>
       An engineer and a bit of a tech nerd with a fair amount of diverse work experience. Strong technical
@@ -77,10 +103,10 @@
       Somewhat familiar with Python, JavaScript, HTML/CSS, Git, Azure DevOps, MS Power Platform and MS Azure cloud services.
     </p>
     <p">
-      Random set of things I've recently done some stuff with: <span id="recentStuff"></span>
+      Random set of things I've recently done some stuff with: <ul id="recentStuff"></ul>
     </p>
     <p>
-      I enjoy simple, minimalistic things with a function. Like bicycles. Or beer.
+      I enjoy simple, minimalistic stuff with a function. Like bicycles. Or beer.
     </p>
 
     <hr>
@@ -103,7 +129,7 @@
     repos.slice(0, 5).forEach(repo => {
       const repoCard = document.createElement('div');
       repoCard.setAttribute('id', repo.id);
-      repoCard.classList.add('container', 'small');
+      repoCard.classList.add('small');
 
       const repoHeader = document.createElement('h3');
       repoHeader.innerText = repo.name;
@@ -163,10 +189,10 @@
     [recentStuff[i], recentStuff[j]] = [recentStuff[j], recentStuff[i]];
   }
 
-  document.getElementById('recentStuff').innerHTML += recentStuff
-    .map(i => `<a href="${i.url}" target="_blank">${i.name}</a>`)
-    .slice(0, 10)
-    .join(', ');
+  for (const i of recentStuff.slice(0, 10)) {
+    const item = `<li><a href="${i.url}" target="_blank">${i.name}</a></li>`;
+    document.getElementById('recentStuff').innerHTML += item;
+  }
 </script>
 
 </html>
