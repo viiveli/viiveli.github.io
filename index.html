@@ -18,17 +18,8 @@
 
     @media screen and (orientation: landscape) {
       body {
-        max-width: 1280px;
-        margin: 0 auto;
         display: grid;
         grid-template-columns: 1fr 2fr;
-      }
-    }
-
-    @media screen and (orientation: portrait) {
-      body {
-        max-width: 720px;
-        margin: 0 auto;
       }
     }
     
@@ -45,6 +36,11 @@
     a {
       color: unset;
       text-decoration: underline;
+    }
+
+    body {
+      margin: 0 auto;
+      max-width: 720px;
     }
 
     div {
