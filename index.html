@@ -22,6 +22,13 @@
         grid-template-columns: 1fr 2fr;
       }
     }
+
+    @media screen and (orientation: portrait) {
+      body {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+    }
     
     html {
       animation-name: fadeIn;
@@ -29,7 +36,6 @@
       animation-timing-function: ease-in;
       animation-duration: 1s;
       font-family: sans-serif;
-      font-weight: lighter;
       opacity: 1;
     }
     
@@ -104,62 +110,10 @@
     <p>
       I enjoy simple, minimalistic stuff with a function. Like bicycles. Or beer.
     </p>
-
-    <hr>
-
-    <div id="projects">
-      <h2>some projects, gizmos and doodads</h2>
-    </div>
   </div>
 </body>
 
 <script>
-  fetch(
-    'https://api.github.com/users/viiveli/repos'
-  ).then(res => {
-    if (!res.ok) throw res;
-    return res.json()
-  }).then(repos => {
-    repos.sort((a, b) => b.pushed_at.localeCompare(a.pushed_at));
-
-    repos.slice(0, 5).forEach(repo => {
-      const repoCard = document.createElement('div');
-      repoCard.setAttribute('id', repo.id);
-      repoCard.classList.add('small');
-
-      const repoHeader = document.createElement('h3');
-      repoHeader.innerText = repo.name;
-
-      const repoLinkPanel = document.createElement('p');
-      const repoLink = document.createElement('a');
-      repoLink.setAttribute('href', repo.html_url);
-      repoLink.innerText = repo.html_url;
-      repoLinkPanel.append(repoLink);
-
-      const repoLatestActivity = document.createElement('p');
-      repoLatestActivity.classList.add('tiny')
-      repoLatestActivity.innerText = `Latest activity on ${new Date(repo.pushed_at).toLocaleString()}`
-
-      const repoDescription = document.createElement('p');
-      repoDescription.innerHTML = repo.description;
-
-      const divider = document.createElement('hr');
-
-      repoCard.append(
-        repoHeader,
-        repoLinkPanel,
-        repoLatestActivity,
-        repoDescription,
-        divider
-      )
-
-      document.getElementById('projects').append(repoCard);
-    });
-  }).catch(error => {
-    console.log(error);
-    document.getElementById('projects').innerHTML += '<i>Whoops. Could not fetch repo info from GitHub...</i>';
-  });
-
   let recentStuff = [
     { name: 'Cosmos DB', url: 'https://azure.microsoft.com/en-us/products/cosmos-db/'},
     { name: 'Express', url: 'https://expressjs.com/' },
@@ -178,8 +132,10 @@
     { name: 'scikit-image', url: 'https://scikit-image.org/' },
     { name: 'scikit-learn', url: 'https://scikit-learn.org/' },
     { name: 'SciPy', url: 'https://www.scipy.org/' },
+    { name: 'SQLAlchemy', url: 'https://www.sqlalchemy.org/' },
     { name: 'SQLite', url: 'https://www.sqlite.org/' },
     { name: 'three.js', url: 'https://threejs.org/' },
+    { name: 'Vite', url: 'https://vitejs.dev/' },
   ]
 
   for (let i = recentStuff.length - 1; i > 0; i--) {
