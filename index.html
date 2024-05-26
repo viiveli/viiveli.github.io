@@ -29,13 +29,16 @@
         grid-template-columns: 1fr;
       }
     }
-    
+
     html {
       animation-name: fadeIn;
       animation-iteration-count: 1;
       animation-timing-function: ease-in;
       animation-duration: 1s;
+      color-scheme: light dark;
       font-family: sans-serif;
+      color: light-dark(black, whitesmoke);
+      background-color: light-dark(whitesmoke, black);
       opacity: 1;
     }
     
@@ -65,6 +68,10 @@
       box-shadow: 0 0 1rem rgba(0, 0, 0, .25);
     }
 
+    #profile {
+      width: 100%;
+    }
+
     .small {
       font-size: .9rem;
     }
@@ -87,7 +94,7 @@
 <body>
   <div class="right-align">
     <h1>viiveli</h1>
-    <img src="img/profile.jpg" style="width: 100%;">
+    <img id="profile" src="img/profile.jpg">
     <p class="tiny">
       <a href="https://github.com/viiveli/">GitHub</a>
       <a href="https://www.linkedin.com/in/veliviisanen/">LinkedIn</a>
